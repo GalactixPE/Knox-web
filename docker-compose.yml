@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  go:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: debian
+    restart: unless-stopped
+    ports:
+      - "1369:3000"
+    volumes:
+      - .:/home/go/app
+    networks:
+      - app-network
+    links:
+      - redis:redis
+  redis:
+    image: redis
+    ports:
+      - "5896:6379"
+    networks:
+      - app-network
+    command: redis-server --requirepass bigbananas
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:

@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+:root {
+    --gray-1: rgb(197, 191, 191);
+    --gray-2: rgb(157, 150, 150);
+    --gray-3: rgba(255, 255, 255, 0.10);
+
+    --red-1: rgba(255, 0, 0, 0.5);
+    --red-2: #d92020;
+
+    --dark-gray-1: rgb(80, 80, 80);
+    --dark-gray-2: rgb(50, 50, 50);
+
+    --opaque-gray: rgba(0, 0, 0, 0.1);
+
+    --verify-green: rgb(12 90 20 / 74%);
+
+    --glurple: #5e09d2;
+}
+
+.light {
+    --bg: #eeeeee;
+    --body-font-color: black;
+
+    --border: var(--gray-3);
+    --button-background: var(--glurple);
+    --button-font-color: white;
+
+    --input-bg-color: var(--opaque-gray);
+    --input-border-color: var(--gray-2);
+    --input-font-color: var(--dark-gray-2);
+}
+
+.dark {
+    --bg: #121212;
+    --body-font-color: white;
+
+    --border: var(--gray-3);
+    --button-background: var(--glurple);
+    --button-font-color: white;
+
+    --input-bg-color: var(--gray-3);
+    --input-border-color: var(--gray-3);
+    --input-font-color: var(--gray-1);
+}
+
+body {
+    color: var(--body-font-color);
+    margin: 3.5rem;
+    margin-top: 7vh;
+    background-color: var(--bg);
+    font-family: 'Quicksand', sans-serif;
+
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+
+p {
+    font-size: 20px;
+}
+
+li {
+    font-size: 20px;
+}
+
+
+h1 {
+    font-size: 45px;
+}
+
+.warning {
+    padding: 19px;
+    margin-bottom: 3%;
+    background-color: var(--red-1);
+    border: var(--red-2) solid 1px;
+    border-radius: 12px;
+}
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.wrap {
+    overflow: hidden;
+    display: flex;
+
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    width: 65vw;
+    height: 60vh;
+}
+
+.verification {
+    padding: 32px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-60px);
+}
+
+#image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--glurple);
+    width: 40%;
+    height: 100%;
+}
+
+
+
+input[type=text] {
+    margin-top: 20px;
+    background-color: var(--input-bg-color);
+    padding: 15px 10px 15px 10px;
+    border: 1px solid var(--input-border-color);
+    color: var(--input-font-color);
+    border-radius: 5px;
+    width: 100%;
+}
+
+input:focus,button:focus {
+    outline-color: var(--glurple);
+}
+
+#verified {
+    display: none;
+}
+
+form button {
+    position: absolute;
+
+    right: 35px;
+    bottom: 35px;
+
+    cursor: pointer;
+    padding: 13px 28px 13px 28px;
+    background-color: var(--button-background);
+    border: 1px solid var(--border);
+    color: var(--button-font-color);
+    border-radius: 5px;
+}
+
+img {
+    width: 65%;
+    height: auto;
+}
+
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+    h1 {
+        font-size: 40px;
+    }
+
+    .wrap {
+        flex-direction: column;
+        width: 100%;
+        height: 85vh;
+    }
+
+    img {
+        width: auto;
+        height: 80%;
+    }
+
+    form button {
+        margin-top: 10px;
+
+        right: 35px;
+        bottom: 67px;
+    }
+
+    .verification {
+        overflow-wrap: normal;
+        padding: 20px;
+        display: unset;
+        transform: unset;
+        width: unset;
+    }
+
+    input[type=text] {
+        width: 85%;
+    }
+
+    #image {
+        width: 100%;
+        height: 20%;
+    }
+
+
+    section {
+        display: unset;
+    }
+
+    body {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}

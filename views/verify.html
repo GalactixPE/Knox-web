@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Golileo Skindex</title>
+    <link href="/cdn/css/style.css" rel="stylesheet">
+    <link href="/cdn/css/checkmark.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="/cdn/staticimg/favicon.ico" />
+</head>
+<body class="dark">
+<section>
+    <div class="wrap">
+        <div id="image">
+            <img id="logo" src="https://media.discordapp.net/stickers/874703421071048744.webp?size=160">
+        </div>
+        <div class="verification" id="no-verify">
+            <div class="wrap-content">
+                <div class="banner">
+                    <h1>GalactixPE Verificatie</h1>
+                    <p>Verifieer je nu, snel en veilig door je <b>Minecraft naam</b> in het tekstvakje in te vullen</p>
+                </div>
+
+                <div class="searchbox">
+
+                    <form>
+                        <input id="username" name="username" placeholder="Steve" type="text" required/>
+                        <br>
+                        <button>Verifieren</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="verification" id="verified">
+            <div class="wrap-content">
+                <div class="banner">
+                    <h1>Succesvol geverifieerd <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg> </h1>
+
+
+
+                    <p>Het kan eventjes duren voordat je de server kan joinen op <b>play.galactixpe.nl</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function escapeHtml(text) {
+        let map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+
+    const usernameInput = document.getElementById("username");
+    usernameInput.oninput = function (){
+        let usernameValue = escapeHtml(usernameInput.value)
+        console.log(usernameValue)
+        fetch("https://golileo.galactixpe.nl/api/" +  usernameValue + "/img/head")
+            .then(function (response){
+                const logo = document.getElementById("logo")
+                if(response.status === 200) {
+                    logo.src = "https://golileo.galactixpe.nl/api/" +  usernameValue + "/img/head"
+                    logo.style.imageRendering = "pixelated"
+                } else if(logo.style.imageRendering === "pixelated") {
+                    logo.src = "https://media.discordapp.net/stickers/874703421071048744.webp?size=160"
+                    logo.style.imageRendering = "unset"
+                }
+            })
+    }
+
+
+    document.addEventListener("submit", function (event) {
+        event.preventDefault()
+        // implement recaptcha
+
+
+        let username = escapeHtml(document.getElementById("username").value)
+        fetch("/api/whitelist",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify({username: username}) // body data type must match "Content-Type" header
+            })
+        .then(() => {
+            document.getElementById("no-verify").style.display = "none"
+            document.getElementById("verified").style.display = "flex"
+
+            const logo = document.getElementById("logo")
+
+            logo.src = "https://media.discordapp.net/stickers/874703421071048744.webp?size=160"
+            logo.style.imageRendering = "unset"
+        })
+
+
+
+    })
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
